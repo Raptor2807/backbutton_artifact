@@ -1,0 +1,18 @@
+[Unit]
+Description=BBH crawler driver (synchronized start, round-robin chunk claim)
+After=bbh-vpn.service network-online.target
+Requires=bbh-vpn.service
+
+[Service]
+Type=simple
+User=root
+# run_crawler.py blocks on wait_for_go.py first, so enabling this unit at boot
+# is safe -- it won't actually crawl until the operator sets GO_TIME.
+ExecStart=/opt/bbh_venv/bin/python /opt/bbh/scripts/run_crawler.py
+Restart=on-failure
+RestartSec=30
+# If the crawler exits 0 (all this VM's chunks done) don't restart-loop.
+RestartPreventExitStatus=0
+
+[Install]
+WantedBy=multi-user.target

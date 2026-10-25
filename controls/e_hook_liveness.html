@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Control E - Location.replace hook liveness</title></head>
+<body>
+<h1>Control E: does the Location.replace hook actually fire?</h1>
+
+<p>Every other control destroys the document that called
+<code>location.replace()</code>, so <code>window.__bbh.location_replace_count</code>
+is unreadable afterwards. This page calls replace with a <strong>fragment</strong>,
+which does not create a new document — so <code>__bbh</code> survives and the
+counter can be read.</p>
+
+<p><strong>Expected:</strong> <code>location_replace_count == 1</code>.</p>
+
+<p><strong>Why it matters beyond this harness:</strong>
+<code>location_redirect_after_back</code> is one of the five rules that
+short-circuit <code>classify_page()</code> straight to HIJACKING. It depends on
+this hook. If the counter reads 0 here, that rule has never fired in production
+and is dead code — which changes what the five shortcut rules actually did to
+the corpus.</p>
+
+<p id="state">not yet called</p>
+
+<script>
+  // Exactly one call, after a tick so the page has settled.
+  setTimeout(function () {
+    location.replace(location.pathname + "#bbh_replaced");
+    document.getElementById("state").textContent =
+      "replace called; history.length " + history.length;
+  }, 300);
+</script>
+</body>
+</html>

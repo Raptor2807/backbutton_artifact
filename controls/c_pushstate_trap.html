@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Control C - pushState trap</title></head>
+<body>
+<h1>Control C: pushState trap</h1>
+
+<p>The classic trap. Extra history entries are pushed on load, and a popstate
+handler pushes another one each time Back fires, so Back never leaves this page.
+This is the <strong>R1b positive control</strong> and also the positive control
+for ordinary same-page trapping.</p>
+
+<p><strong>Expected:</strong> Back press 1 does <em>not</em> leave this page.
+The referrer is reachable in principle — it is still on the stack — but the trap
+prevents ever getting there within the press budget.</p>
+
+<p id="state">pushes: 0</p>
+
+<script>
+  var pushes = 0;
+  function note() {
+    document.getElementById("state").textContent =
+      "pushes: " + pushes + " history.length: " + history.length;
+  }
+  for (var i = 0; i < 3; i++) {
+    history.pushState({ bbh: i }, "", "#trap" + i);
+    pushes++;
+  }
+  note();
+  window.addEventListener("popstate", function () {
+    history.pushState({ bbh: "re" }, "", "#trap_re" + pushes);
+    pushes++;
+    note();
+  });
+</script>
+</body>
+</html>

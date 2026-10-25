@@ -1,0 +1,16 @@
+# Fill in from a measurement host before pushing. The paper notes that
+# measurement results vary with the automation stack, so these matter.
+#
+#   google-chrome --version
+#   chromedriver --version
+#   python3 -c "import selenium; print(selenium.__version__)"
+#   python3 --version
+#   lsb_release -d
+#   git -C <bannerclick> rev-parse --short HEAD
+#
+Chrome:        
+chromedriver:  
+Selenium:      
+Python:        
+OS:            
+BannerClick:   

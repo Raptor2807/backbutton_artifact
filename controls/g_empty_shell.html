@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Control G - unrendered shell</title></head>
+<body>
+<h1>Control G: a shell that never produces links</h1>
+
+<p>Framework scripts, no anchors, ever. This is what an unhydrated SPA or a
+blank error page looks like to the crawler.</p>
+
+<p><strong>Expected:</strong> <code>article_test_status =
+ARTICLE_PAGE_NOT_RENDERED</code>, and the domain leaves the denominator.</p>
+
+<p><strong>Why it matters:</strong> the old code emitted <code>NO_LINK</code>
+here — the same label it gave a site that rendered perfectly well but happened
+to have no article links. One means our instrument failed and the domain is
+untestable; the other is a real measurement. Collapsing them put error pages in
+the denominator, 8.3&ndash;9.7% of everything counted as "testable".</p>
+
+<script>var a=1;</script><script>var b=2;</script><script>var c=3;</script>
+<script>var d=4;</script><script>var e=5;</script><script>var f=6;</script>
+<script>var g=7;</script><script>var h=8;</script><script>var i=9;</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Control F - article link opens a popup only</title></head>
+<body>
+<h1>Control F: the article link opens a popup and nothing else</h1>
+
+<p>The link below is intercepted and opened with <code>window.open()</code>. The
+original tab does <strong>not</strong> navigate.</p>
+
+<p><strong>Expected:</strong> <code>article_test_status =
+ARTICLE_OPENED_POPUP_ONLY</code>, <code>article_click_opened_new_window =
+true</code>, and the popup closed with focus returned to this tab.</p>
+
+<p><strong>Why it matters:</strong> the old classifier scored the popup itself as
+hijacking — <code>click_opened_unexpected_new_window_or_tab</code>, 180 of the
+352 press-1 records — while Back in the original tab worked perfectly. Measuring
+Back inside the popup answers a different question, and running a back chain in
+the original tab after a popup would measure the <em>main</em> page and label the
+result an article test.</p>
+
+
+<!-- Chrome nav, the way a real page has it. Every path here is hard-rejected
+     as an article candidate, so these can never outrank the real link -- but
+     they DO count toward anchors_seen, which is the signal separating "this
+     page rendered" from "our crawler failed". A 1-anchor test page is not a
+     realistic page, and at the default BBH_MIN_ANCHORS these controls were
+     being excluded before the article hop ever ran. -->
+<nav>
+  <a href="/about">About</a>
+  <a href="/contact">Contact</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+  <a href="/login">Sign in</a>
+  <a href="/register">Register</a>
+  <a href="/account">Account</a>
+  <a href="/cart">Cart</a>
+  <a href="/checkout">Checkout</a>
+</nav>
+
+<h2>Article links</h2>
+<ul>
+  <li><a id="bbh_popup_link" href="/a_article.html">Control F article one</a></li>
+</ul>
+
+<script>
+  document.getElementById("bbh_popup_link").addEventListener("click", function (e) {
+    e.preventDefault();
+    window.open(e.currentTarget.href, "_blank");
+  });
+</script>
+</body>
+</html>

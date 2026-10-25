@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Control H - links appear only on scroll</title></head>
+<body style="min-height:3000px">
+<h1>Control H: lazy hydration</h1>
+
+<p>No anchors at load. Article links are injected on the first scroll event —
+which is what lazy-loaded and client-rendered pages actually do.</p>
+
+<p><strong>Expected:</strong> <code>article_test_status = TESTED</code> with
+<code>article_render_retried = true</code>. The retry in
+<code>_await_render()</code> scrolls, waits, and collects again.</p>
+
+<p><strong>Why it matters:</strong> the old code called
+<code>find_elements</code> once, immediately, and an empty list meant "no
+article link". Article coverage sat at 63.4% of testable domains, and the
+broad-selector patch recovered only 21.7% of the failures — 70.7% of them had
+zero candidates with a median of one anchor. A better selector cannot rank
+anchors that do not exist yet.</p>
+
+<div id="lazy"></div>
+
+<script>
+  var done = false;
+  function hydrate() {
+    if (done) return;
+    done = true;
+    var box = document.getElementById("lazy");
+    // A realistic count. A rendered page produces dozens of anchors -- the
+    // measured median on pages that WERE testable is 194, against 2 on pages
+    // that failed. Three links would sit below BBH_MIN_ANCHORS and read as
+    // "never rendered" even after successful hydration, which is a property of
+    // the threshold, not of the retry.
+    for (var i = 1; i <= 12; i++) {
+      var a = document.createElement("a");
+      a.href = "/a_article.html?n=" + i;
+      a.textContent = "Lazily rendered article " + i;
+      box.appendChild(a);
+      box.appendChild(document.createElement("br"));
+    }
+  }
+  window.addEventListener("scroll", hydrate, { once: true });
+</script>
+</body>
+</html>

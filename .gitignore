@@ -1,0 +1,19 @@
+# never commit these
+*.ovpn
+*.env
+**/credentials*
+**/secrets*
+screenshots/
+*.jsonl
+verdicts.csv
+per_domain.csv
+model_categories*.csv
+
+# noise
+__pycache__/
+*.pyc
+.DS_Store
+venv/
+
+# pre-push tooling, never ship: contains identifying search patterns
+.pending/

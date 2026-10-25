@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Control B - main page erases itself on article click</title></head>
+<body>
+<h1>Control B: main page erases its own entry on the article click</h1>
+
+<p>This is the <strong>R1a positive control</strong> — site-side erasure of the
+referrer, which for an article page is the site's own main page.</p>
+
+<p>The link below is intercepted. Instead of letting the click navigate
+normally (which would push a history entry), this page calls
+<code>location.replace()</code>, destroying its own entry. From the article
+page, Back can never return here.</p>
+
+<p><strong>Expected:</strong> main page measures clean; the article page has
+history.length 3 with the main page absent from the stack, Back press 1 lands on
+the control referrer rather than on this page. The instrumentation must record
+<code>location_replace_count &gt;= 1</code> on <em>this</em> document, before the
+navigation, so the erasure is attributable to the site rather than to us.</p>
+
+
+<!-- Chrome nav, the way a real page has it. Every path here is hard-rejected
+     as an article candidate, so these can never outrank the real link -- but
+     they DO count toward anchors_seen, which is the signal separating "this
+     page rendered" from "our crawler failed". A 1-anchor test page is not a
+     realistic page, and at the default BBH_MIN_ANCHORS these controls were
+     being excluded before the article hop ever ran. -->
+<nav>
+  <a href="/about">About</a>
+  <a href="/contact">Contact</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+  <a href="/login">Sign in</a>
+  <a href="/register">Register</a>
+  <a href="/account">Account</a>
+  <a href="/cart">Cart</a>
+  <a href="/checkout">Checkout</a>
+</nav>
+
+<h2>Article links</h2>
+<ul>
+  <li><a id="bbh_ctl_link" href="/b_article.html">Control B article one</a></li>
+</ul>
+
+<script>
+  document.getElementById("bbh_ctl_link").addEventListener("click", function (e) {
+    e.preventDefault();
+    location.replace(e.currentTarget.href);
+  });
+</script>
+</body>
+</html>

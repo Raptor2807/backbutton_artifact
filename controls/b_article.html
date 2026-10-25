@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Control B article</title></head>
+<body>
+<h1>Control B article</h1>
+<p>Reached because the control B main page replaced its own history entry
+instead of navigating normally.</p>
+<p><strong>Expected:</strong> the main page is not on the stack; Back press 1
+skips past it to the control referrer. Under the current classifier this page is
+EXCLUDED as instrument failure. It should be
+<code>HIJACKING_REFERRER_ERASED</code>.</p>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Control D - target calls location.replace on load</title></head>
+<body>
+<h1>Control D: target replaces its own entry</h1>
+
+<p>This control exists to <strong>falsify a claim</strong>, not to confirm one.</p>
+
+<p>The claim under test: a target site <em>cannot</em> erase the controlled
+referrer from the history stack. <code>location.replace()</code> replaces the
+entry of the page that calls it — this page's own entry — so the referrer at
+index 1 should be untouched and Back should still reach it.</p>
+
+<p><strong>Expected if the claim holds:</strong> history.length stays 3,
+document at <code>d_target_replace_landed.html</code>, referrer still reachable,
+Back press 1 returns to the control referrer.</p>
+
+<p><strong>If instead the referrer becomes unreachable</strong>, the claim is
+wrong, site-side erasure of the main-page referrer is possible, and R1a must
+apply to main pages too — not only article pages.</p>
+
+<script>
+  // No user gesture, fires immediately after load: the strongest form of the
+  // site-side replacement being tested.
+  location.replace("/d_target_replace_landed.html");
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Control A - clean</title></head>
+<body>
+<h1>Control A: clean target</h1>
+<p>No history manipulation of any kind. This is the negative control for every
+other page here.</p>
+
+<p><strong>Expected:</strong> history.length == 3 at load, referrer reachable,
+Back press 1 returns to the control referrer.</p>
+
+<p>If this control fails, nothing else in the run means anything — the harness
+itself or the navigation path is broken, not the page.</p>
+
+
+<!-- Chrome nav, the way a real page has it. Every path here is hard-rejected
+     as an article candidate, so these can never outrank the real link -- but
+     they DO count toward anchors_seen, which is the signal separating "this
+     page rendered" from "our crawler failed". A 1-anchor test page is not a
+     realistic page, and at the default BBH_MIN_ANCHORS these controls were
+     being excluded before the article hop ever ran. -->
+<nav>
+  <a href="/about">About</a>
+  <a href="/contact">Contact</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+  <a href="/login">Sign in</a>
+  <a href="/register">Register</a>
+  <a href="/account">Account</a>
+  <a href="/cart">Cart</a>
+  <a href="/checkout">Checkout</a>
+</nav>
+
+<h2>Article links</h2>
+<ul>
+  <li><a href="/a_article.html">Control A article one</a></li>
+  <li><a href="/a_article.html?two">Control A article two</a></li>
+</ul>
+</body>
+</html>

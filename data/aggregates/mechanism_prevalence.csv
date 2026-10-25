@@ -1,0 +1,12 @@
+signal,visibility,when,hijacking_pct,benign_pct,n_hijacking,n_benign,note
+same_page_trap,visitor,press,54.1,,2458,100580,press-level: benign has none by construction
+unexpected_destination,visitor,press,35.5,,2458,100580,press-level
+advertisement_vignette,visitor,press,0.1,,1738,,1 of 1738 measurements
+window_open_on_press,visitor,press,0.0,,1625,,press-level
+entries_planted_at_load,history API,load,79.3,7.9,2458,100580,ambient comparison valid
+history_api_used_at_load,history API,load,39.2,20.0,2450,100556,ambient comparison valid
+popstate_fired,history API,press,48.0,,2458,100580,press-level
+push_on_press,history API,press,20.1,,1625,,press-level
+replace_on_press,history API,press,19.0,,1625,,press-level
+no_mechanism_identified,residual,,13.5,,2458,,332 of 2458; redirect-on-back counted as a mechanism
+no_mechanism_identified_strict,residual,,42.7,,2458,,1049 of 2458; redirect-on-back not counted
