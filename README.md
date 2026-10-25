@@ -1,4 +1,4 @@
-# Back-Button-Hijacking
+# Detecting and Characterizing Back-Button Hijacking on the Web
 
 Crawler, data, and analysis for the paper *Detecting and Characterizing
 Back-Button Hijacking on the Web*.
