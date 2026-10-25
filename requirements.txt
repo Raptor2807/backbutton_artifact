@@ -1,0 +1,7 @@
+# Confirm against the measurement host before pushing:
+#   /opt/bbh_venv/bin/pip freeze | grep -iE 'selenium|beautifulsoup|lxml|requests|psutil'
+selenium
+beautifulsoup4
+lxml
+requests
+psutil

@@ -1,16 +1,10 @@
-# Fill in from a measurement host before pushing. The paper notes that
-# measurement results vary with the automation stack, so these matter.
-#
-#   google-chrome --version
-#   chromedriver --version
-#   python3 -c "import selenium; print(selenium.__version__)"
-#   python3 --version
-#   lsb_release -d
-#   
+# Measurement environment, recorded from a crawler vantage point.
 #
 Chrome:        Google Chrome 151.0.7922.75
-chromedriver:  Selenium:      4.45.0
+chromedriver:  TODO  -- run: chromedriver --version
+Selenium:      4.45.0
 Python:        Python 3.13.5
 OS:            Debian GNU/Linux 13 (trixie)
 Kernel:        6.18.31.1.amd64-smp
 OpenVPN:       OpenVPN 2.6.14
+BannerClick:   TODO  -- run: pip show bannerclick | grep -i version

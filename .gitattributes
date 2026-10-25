@@ -1,0 +1,12 @@
+# Keep data and code byte-identical across platforms. Without this, a checkout
+# on Windows rewrites every line and git reports whole files as modified, which
+# also breaks the checksums in data/SHA256SUMS.
+*            -text
+*.csv        text eol=lf
+*.py         text eol=lf
+*.sh         text eol=lf
+*.md         text eol=lf
+*.txt        text eol=lf
+*.html       text eol=lf
+*.service    text eol=lf
+*.pdf        binary
